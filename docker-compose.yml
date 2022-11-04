@@ -17,10 +17,23 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
+  go-traefik:
+    build: .
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+      - "traefik.http.routers.go-traefik.rule=Host(`localhost`)"
+      - "traefik.http.routers.go-traefik.entrypoints=web"
+    ports:
+      - "5577:5577"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:4.4
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+    command: mongod
+
+volumes:
+  mongodb: {}
