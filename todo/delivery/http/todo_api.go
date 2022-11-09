@@ -12,7 +12,7 @@ import (
 	"github.com/go-chi/render"
 )
 
-// todoHandler represent the httphandler for file
+// todoHandler represent the httphandler
 type todoHandler struct {
 	router      *chi.Mux
 	TodoService services.TodoService
