@@ -15,10 +15,10 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 
-	"go-traefik/handlers"
 	pkg_mongodb "go-traefik/pkg/mongodb"
-	repository "go-traefik/repository"
-	services "go-traefik/services"
+	handlers "go-traefik/todo/delivery/http"
+	repository "go-traefik/todo/repository"
+	services "go-traefik/todo/services"
 	"go-traefik/utils"
 	response "go-traefik/utils/response"
 )
@@ -71,7 +71,7 @@ func main() {
 	// Load environment variables
 	err := godotenv.Load()
 	if err != nil {
-		utils.CaptureError(errors.New("Error loading .env file"))
+		utils.CaptureError(errors.New("error loading .env file"))
 	}
 
 	// Init MongoDB
@@ -95,7 +95,8 @@ func main() {
 	todoService := services.NewTodoService(todoRepo)
 
 	// Handler
-	handlers.NewTodoHTTPHandler(router, todoService)
+	todoHandler := handlers.NewTodoHTTPHandler(router, todoService)
+	todoHandler.RegisterRoutes()
 
 	// Print
 	PrintAllRoutes(router)

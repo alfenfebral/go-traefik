@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	models "go-traefik/models"
+	models "go-traefik/todo/models"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -2,9 +2,9 @@ package services_test
 
 import (
 	"errors"
-	mockRepositories "go-traefik/mocks/repository"
-	"go-traefik/models"
-	"go-traefik/services"
+	mockRepositories "go-traefik/todo/mocks/repository"
+	"go-traefik/todo/models"
+	"go-traefik/todo/services"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

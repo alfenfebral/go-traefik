@@ -1,8 +1,8 @@
 package services
 
 import (
-	"go-traefik/models"
-	"go-traefik/repository"
+	"go-traefik/todo/models"
+	"go-traefik/todo/repository"
 )
 
 // TodoService represent the todo service
@@ -64,7 +64,7 @@ func (a *todoService) Create(value *models.Todo) (*models.Todo, error) {
 	return res, nil
 }
 
-// Update - update todo service
+// Update - update todo by id service
 func (a *todoService) Update(id string, value *models.Todo) (*models.Todo, error) {
 	_, err := a.todoRepo.CountFindByID(id)
 	if err != nil {
@@ -82,7 +82,7 @@ func (a *todoService) Update(id string, value *models.Todo) (*models.Todo, error
 	return nil, nil
 }
 
-// Delete - delete todo service
+// Delete - delete todo by id service
 func (a *todoService) Delete(id string) error {
 	err := a.todoRepo.Delete(id)
 	if err != nil {
