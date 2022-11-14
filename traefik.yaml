@@ -1,0 +1,11 @@
+# Static configuration
+entryPoints:
+  web:
+    address: :80
+
+providers:
+  docker:
+    exposedbydefault: false
+
+api:
+  insecure: true

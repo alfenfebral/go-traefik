@@ -84,7 +84,7 @@ func main() {
 		render.JSON(w, r, response.H{
 			"success": "true",
 			"code":    200,
-			"message": "Services run properly",
+			"message": fmt.Sprintf("Services %s run properly", os.Getenv("APP_NAME")),
 		})
 	})
 
