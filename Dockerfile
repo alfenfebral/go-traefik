@@ -1,6 +1,11 @@
-FROM golang:alpine
+ARG FOLDER_APP_NAME=go-traefik
 
-ENV FOLDER_APP_NAME=go-traefik
+#----------------------------------
+FROM golang:alpine AS builder
+
+ARG FOLDER_APP_NAME
+
+ENV FOLDER_APP_NAME=$FOLDER_APP_NAME
 
 RUN apk update && apk add --no-cache git && apk add --no-cache bash && apk add build-base
 
@@ -14,4 +19,18 @@ RUN go mod tidy
 
 RUN go build -o main $GOPATH/src/$FOLDER_APP_NAME/cmds/app/main.go
 
-CMD $GOPATH/src/$FOLDER_APP_NAME/main
+#----------------------------------
+FROM alpine:3.16.1
+
+ARG FOLDER_APP_NAME
+
+ENV FOLDER_APP_NAME=$FOLDER_APP_NAME
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /app
+
+COPY --from=builder /go/src/$FOLDER_APP_NAME/.env .env
+COPY --from=builder /go/src/$FOLDER_APP_NAME/main .
+
+CMD ./main
